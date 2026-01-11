@@ -2,6 +2,7 @@
 
 A lightweight, secure command-line tool for archiving system logs with timestamps.  
 Designed for Unix-based systems and DevOps workflows, with both **local** and **Docker** usage in mind.
+More about this project roadmap can be found here: [Roadmap.sh Project Page](https://roadmap.sh/projects/log-archive-tool)
 
 ---
 
