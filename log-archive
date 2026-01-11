@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Log Archive CLI Tool
+
+ARCHIVE_ROOT="$HOME/log-archive"
+LOG_FILE="$ARCHIVE_ROOT/archive.log"
+
+# Create a directory if it doesn't exist
+init_archive_dir() {
+    mkdir -p "$ARCHIVE_ROOT"
+}
+
+# Create the archive
+create_archive() {
+    local log_directory="$1"
+
+    local timestamp
+    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+
+    local archive_name="logs-${timestamp}.tar.gz"
+    local archive_path="$ARCHIVE_ROOT/$archive_name"
+
+    # Creating compressed archive for contents only
+    tar -czf "$archive_path" -C "$log_directory" .
+
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to archive logs." >&2
+        exit 1
+    fi
+
+    # Log archive action
+    echo "$(date +"%Y-%m-%d %H:%M:%S") - Archived $log_directory -> $archive_path" >> "$LOG_FILE"
+
+    echo "Logs archived successfully:"
+    echo "$archive_path"
+}
+
+# CLI entry point
+main() {
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: log-archive <log-directory>"
+        exit 1
+    fi
+
+    local log_directory="$1"
+
+    if [ ! -d "$log_directory" ]; then
+        echo "Error:$log_directory is not a valid directory."
+        exit 1
+    fi
+
+    init_archive_dir
+    create_archive "$log_directory"
+}
+
+# Run the program
+main "$@"
