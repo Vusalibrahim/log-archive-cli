@@ -188,3 +188,6 @@ Planned enhancements include:
 * Optional compression level tuning
 
 ---
+
+## 📄 License
+MIT License
