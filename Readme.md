@@ -1,4 +1,3 @@
-```md
 # Log Archive CLI Tool
 
 A lightweight, secure command-line tool for archiving system logs with timestamps.  
